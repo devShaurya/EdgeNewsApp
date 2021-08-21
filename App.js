@@ -5,6 +5,7 @@ import PagerView from "react-native-pager-view";
 
 const partnerName = "6117722de7669c00079dea91";
 const ApiKey = "9PY5VRN-QR84WSC-M4K7ERF-R5M5FVA";
+
 const myHeaders = new Headers();
 myHeaders.append("Content-Type", "application/json");
 myHeaders.append("Access-Control-Allow-Origin", "*");
@@ -22,16 +23,21 @@ export default function App() {
   const pagerViewRef = useRef(null);
 
   async function fetchData() {
-    const response = await fetch(
-      `https://developerapis.stg-alefedge.com/et/api/v1/stream-tech/content/get-all?partner_name=${partnerName}`,
-      requestOptions
-    ).then((response) => response.json());
-    var tempVideoList = [];
-    response.map(({ content_url, partner_cloud_url } = val) => {
-      tempVideoList = [...tempVideoList, { content_url, partner_cloud_url }];
-    });
-    setVideoLinksList(tempVideoList);
-    setIsLoading(false);
+    try {
+      const response = await fetch(
+        `https://developerapis.stg-alefedge.com/et/api/v1/stream-tech/content/get-all?partner_name=${partnerName}`,
+        requestOptions
+      ).then((response) => response.json());
+      var tempVideoList = [];
+      response.map(({ content_url, partner_cloud_url } = val) => {
+        tempVideoList = [...tempVideoList, { content_url, partner_cloud_url }];
+      });
+      setVideoLinksList(tempVideoList);
+      setIsLoading(false);
+    } catch (error) {
+      console.log(error);
+      setIsLoading(false);
+    }
   }
   useEffect(() => {
     fetchData();
