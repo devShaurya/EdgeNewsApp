@@ -12,7 +12,7 @@ import { Card } from "react-native-elements";
 import { MaterialIcons } from "@expo/vector-icons";
 
 export default function VideoList({ isLoading, masterVideoList, navigation }) {
-    const [searchName, setSearchName] = useState("");
+    // const [searchName, setSearchName] = useState("");
     const [filteredVideoList, setFilterdVideoList] = useState(masterVideoList);
 
     useEffect(() => {
@@ -74,13 +74,13 @@ export default function VideoList({ isLoading, masterVideoList, navigation }) {
     return (
         <View style={[styles.screen]}>
             <StatusBar barStyle="default" />
-            <TextInput
+            {/* <TextInput
                 style={styles.textInputStyle}
                 onChangeText={(text) => setSearchName(text)}
                 value={searchName}
                 underlineColorAndroid="transparent"
                 placeholder="Search Here"
-            />
+            /> */}
             <FlatList
                 data={filteredVideoList}
                 keyExtractor={(item, index) => index.toString()}
