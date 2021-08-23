@@ -12,11 +12,12 @@ import { Card } from "react-native-elements";
 import { MaterialIcons } from "@expo/vector-icons";
 
 export default function VideoList({ isLoading, masterVideoList, navigation }) {
-    // const [searchName, setSearchName] = useState("");
-    const [filteredVideoList, setFilterdVideoList] = useState(masterVideoList);
+    const [searchName, setSearchName] = useState("");
+    const [filteredVideoList, setFilteredVideoList] = useState(masterVideoList);
 
     useEffect(() => {
-        setFilterdVideoList(masterVideoList);
+        setFilteredVideoList(masterVideoList);
+        setSearchName("");
     }, [isLoading, masterVideoList]);
 
     if (isLoading) {
@@ -32,6 +33,21 @@ export default function VideoList({ isLoading, masterVideoList, navigation }) {
             </View>
         );
     }
+
+    const onSearchTextChange = (text) => {
+        if (text) {
+            const newData = masterVideoList.filter(function (item) {
+                const itemData = item.name ? item.name.toLowerCase() : "";
+                const textData = text.toLowerCase();
+                return itemData.indexOf(textData) > -1;
+            });
+            setFilteredVideoList(newData);
+            setSearchName(text);
+        } else {
+            setFilteredVideoList(masterVideoList);
+            setSearchName(text);
+        }
+    };
 
     const VideoCard = ({ item }) => {
         const navigateToShowVideo = () => {
@@ -76,7 +92,7 @@ export default function VideoList({ isLoading, masterVideoList, navigation }) {
             <StatusBar barStyle="default" />
             {/* <TextInput
                 style={styles.textInputStyle}
-                onChangeText={(text) => setSearchName(text)}
+                onChangeText={onSearchTextChange}
                 value={searchName}
                 underlineColorAndroid="transparent"
                 placeholder="Search Here"
