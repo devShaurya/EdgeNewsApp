@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import VideoList from "../components/VideoList";
 import { MaterialIcons } from "@expo/vector-icons";
@@ -18,15 +18,15 @@ const requestOptions = {
     redirect: "follow",
 };
 
-export default function HomeScreen() {
-    const [index, setIndex] = useState(0);
-    const [masterVideoList, setMasterVideoList] = useState([]);
-    const [filteredVideoList, setFilterdVideoList] = useState([]);
-    const [favoriteVideoList, setFavoriteVideoList] = useState([]);
-    const [watchLaterVideoList, setWatchLaterVideoList] = useState([]);
+export default function HomeScreen({
+    masterVideoList,
+    setMasterVideoList,
+    favoriteVideoList,
+    watchLaterVideoList,
+}) {
     const [isLoading, setIsLoading] = useState(true);
 
-    useState(() => {
+    useEffect(() => {
         let abortController = new AbortController();
         let aborted = abortController.signal.aborted;
         async function fetchData() {
@@ -43,15 +43,18 @@ export default function HomeScreen() {
                         {
                             content_url,
                             partner_content_url,
-                            isInFavorite: false,
-                            isInWatchLater: false,
-                            name: "Video",
+                            name: partner_content_url
+                                .substring(
+                                    partner_content_url.lastIndexOf("/") + 1,
+                                    partner_content_url.length - 4
+                                )
+                                .split("-")
+                                .join(" "),
                         },
                     ];
                 });
                 if (aborted == false) {
                     setMasterVideoList(tempVideoList);
-                    setFilterdVideoList(tempVideoList);
                     setIsLoading(false);
                 }
             } catch (error) {
@@ -74,7 +77,7 @@ export default function HomeScreen() {
 
                     if (route.name === "Home") {
                         iconName = "home-filled";
-                    } else if (route.name === "Favorite") {
+                    } else if (route.name === "Favorites") {
                         iconName = "favorite";
                     } else if (route.name === "Watch Later") {
                         iconName = "watch-later";
@@ -97,16 +100,22 @@ export default function HomeScreen() {
                     <VideoList
                         isLoading={isLoading}
                         {...props}
-                        filteredVideoList={filteredVideoList}
+                        masterVideoList={masterVideoList}
+                        // inFavoriteTab={false}
+                        // inWatchLaterTab={false}
                     />
                 )}
             </Tab.Screen>
-            <Tab.Screen name="Favorite">
+            <Tab.Screen name="Favorites">
                 {(props) => (
                     <VideoList
                         isLoading={isLoading}
                         {...props}
-                        filteredVideoList={filteredVideoList}
+                        masterVideoList={masterVideoList.filter((value) => {
+                            return favoriteVideoList.includes(value.name);
+                        })}
+                        // favoriteVideoList={favoriteVideoList}
+                        // inFavoriteTab={true}
                     />
                 )}
             </Tab.Screen>
@@ -115,7 +124,11 @@ export default function HomeScreen() {
                     <VideoList
                         isLoading={isLoading}
                         {...props}
-                        filteredVideoList={filteredVideoList}
+                        masterVideoList={masterVideoList.filter((value) => {
+                            return watchLaterVideoList.includes(value.name);
+                        })}
+                        // watchLaterVideoList={watchLaterVideoList}
+                        // inWatchLaterTab={true}
                     />
                 )}
             </Tab.Screen>

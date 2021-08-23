@@ -1,5 +1,4 @@
-import { Video } from "expo-av";
-import React, { useRef, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
     View,
     Text,
@@ -8,19 +7,26 @@ import {
     TextInput,
     FlatList,
     StatusBar,
-    Image,
-    TouchableOpacity,
 } from "react-native";
-// import Video from "react-native-video";
+import { Card } from "react-native-elements";
+import { MaterialIcons } from "@expo/vector-icons";
 
 export default function VideoList({
     isLoading,
-    filteredVideoList,
+    masterVideoList,
     navigation,
+    inFavoriteTab,
+    favoriteVideoList,
+    inWatchLaterTab,
+    watchLaterVideoList,
 }) {
     const [searchName, setSearchName] = useState("");
-    const playbackInstance = useRef(null);
-    const video = useRef(null);
+    const [filteredVideoList, setFilterdVideoList] = useState(masterVideoList);
+
+    useEffect(() => {
+        setFilterdVideoList(masterVideoList);
+    }, [isLoading, masterVideoList]);
+
     if (isLoading) {
         return (
             <View style={[styles.screen]}>
@@ -34,28 +40,42 @@ export default function VideoList({
             </View>
         );
     }
-    // console.log("filterVideoList", filteredVideoList);
 
     const VideoCard = ({ item }) => {
+        const navigateToShowVideo = () => {
+            navigation.navigate({
+                name: "video",
+                params: {
+                    edgeUri: item.content_url,
+                    partnerUri: item.partner_content_url,
+                    title: item.name,
+                },
+            });
+        };
+
         return (
-            <View style={styles.card}>
-                <TouchableOpacity
-                    // <Text
-                    style={styles.titleButton}
-                    onPress={() => {
-                        navigation.navigate({
-                            name: "video",
-                            params: {
-                                edgeUri: item.content_url,
-                                partnerUri: item.partner_content_url,
-                            },
-                        });
-                    }}
-                >
-                    <Text style={styles.titleText}>{item.name}</Text>
-                </TouchableOpacity>
-                <View style={styles.faveAndWatchLater}></View>
-            </View>
+            <Card>
+                <View style={styles.card}>
+                    <Text
+                        style={{
+                            textTransform: "capitalize",
+                            fontWeight: "500",
+                            flex: 0.8,
+                        }}
+                    >
+                        {item.name}
+                    </Text>
+
+                    <MaterialIcons.Button
+                        name={"play-circle-filled"}
+                        style={{ flex: 0.2 }}
+                        backgroundColor={"#53bb53"}
+                        onPress={navigateToShowVideo}
+                    >
+                        Play
+                    </MaterialIcons.Button>
+                </View>
+            </Card>
         );
     };
 
@@ -94,27 +114,11 @@ const styles = StyleSheet.create({
         fontSize: 16,
         borderColor: "#53bb53",
     },
+
     card: {
-        elevation: 5,
-        shadowColor: "#333",
-        shadowOffset: { height: 1, width: 1 },
-        shadowOpacity: 0.3,
-        shadowRadius: 2,
-        borderRadius: 6,
-        marginHorizontal: 4,
-        marginVertical: 6,
-    },
-    titleButton: {
-        padding: 8,
-        marginVertical: 4,
-    },
-    titleText: {
-        fontWeight: "bold",
-        fontSize: 16,
-        paddingLeft: 16,
-    },
-    faveAndWatchLater: {
         flexDirection: "row",
-        flex: 1,
+        alignSelf: "stretch",
+        justifyContent: "space-between",
+        alignItems: "center",
     },
 });
