@@ -11,15 +11,7 @@ import {
 import { Card } from "react-native-elements";
 import { MaterialIcons } from "@expo/vector-icons";
 
-export default function VideoList({
-    isLoading,
-    masterVideoList,
-    navigation,
-    inFavoriteTab,
-    favoriteVideoList,
-    inWatchLaterTab,
-    watchLaterVideoList,
-}) {
+export default function VideoList({ isLoading, masterVideoList, navigation }) {
     const [searchName, setSearchName] = useState("");
     const [filteredVideoList, setFilterdVideoList] = useState(masterVideoList);
 
