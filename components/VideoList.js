@@ -90,13 +90,13 @@ export default function VideoList({ isLoading, masterVideoList, navigation }) {
     return (
         <View style={[styles.screen]}>
             <StatusBar barStyle="default" />
-            {/* <TextInput
+            <TextInput
                 style={styles.textInputStyle}
                 onChangeText={onSearchTextChange}
                 value={searchName}
                 underlineColorAndroid="transparent"
                 placeholder="Search Here"
-            /> */}
+            />
             <FlatList
                 data={filteredVideoList}
                 keyExtractor={(item, index) => index.toString()}
