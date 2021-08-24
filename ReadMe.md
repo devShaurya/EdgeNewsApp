@@ -15,7 +15,8 @@ Expo App for [Topcoder's EdgeNet Challenge Series - Video News Feeds App](https:
 ## Steps followed to add videos
 
 1. Followed all the instructions (except the Sandbox section) given at [this tutorial](https://developer.alefedge.com/get-started/play-your-first-edge-video/5g-video-streaming-tutorial/) by AlefEdge.
-2. I used [this](https://developerapis.stg-alefedge.com/api-docs-edgetube/#/Video%20Enablement%20APIs/post_api_v1_stream_tech_content_add) API call to add the videos.3. [This](https://developerapis.stg-alefedge.com/api-docs-edgetube/#/Video%20Enablement%20APIs/get_api_v1_stream_tech_content_get_all) API call is being used in the code to retrieve all the video urls.
+2. I used [this](https://developerapis.stg-alefedge.com/api-docs-edgetube/#/Video%20Enablement%20APIs/post_api_v1_stream_tech_content_add) API call to add the videos.
+3. [This](https://developerapis.stg-alefedge.com/api-docs-edgetube/#/Video%20Enablement%20APIs/get_api_v1_stream_tech_content_get_all) API call is being used in the code to retrieve all the video urls.
 
 ## Acknowlegment
 
