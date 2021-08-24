@@ -2,6 +2,10 @@
 
 Expo App for [Topcoder's EdgeNet Challenge Series - Video News Feeds App](https://www.topcoder.com/challenges/1af89a1d-7a29-4617-90f6-675064dc076c).
 
+## Verfication Video
+
+[Link](https://drive.google.com/file/d/1bsPCOk2IxT_RmmhSA69h0aB1hnjaefJ6/view?usp=sharing)
+
 ## Steps to Deploy
 
 1. Clone this repository wherever you like. Use `master` branch for the next steps.
@@ -11,6 +15,7 @@ Expo App for [Topcoder's EdgeNet Challenge Series - Video News Feeds App](https:
 5. Use any one of _Tunnel_, _LAN_ or _Local_ URLs to open the app in Expo Go app of your simulators or scan the _QR Code_ for opening app in your device. More related to this can be found [here](https://docs.expo.dev/get-started/create-a-new-app/#opening-the-app-on-your-phonetablet).
 6. Sometimes, the code gives fetch-time-out error in the call to retrieve video-urls. If it happens, please close the simulators and terminal and repeat the steps from step-4.
 7. Some videos might take too much time to load. For that you can reload the app pressing `r` key in your terminal. If that does not work, please close the simulator and terminal and repeat the steps from step-4.
+8. I have tested on simulator -> iPhone12 with iOS 14.5.
 
 ## Steps followed to add videos
 
