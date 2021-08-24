@@ -4,7 +4,7 @@ Expo App for [Topcoder's EdgeNet Challenge Series - Video News Feeds App](https:
 
 ## Steps to Deploy
 
-1. Clone this repository wherever you like.
+1. Clone this repository wherever you like. Use `master` branch for the next steps.
 2. Run `npm i` command, inside the cloned repo, to install all node packages.
 3. Please install **expo** before going any further. You can use instructions present [here](https://docs.expo.dev/get-started/installation/). I will also recommend to install and configure [**ios simulator**](https://docs.expo.dev/workflow/ios-simulator/) and [**android studio emulator**](https://docs.expo.dev/workflow/android-studio-emulator/). Also please install **Expo Go App** in your emulators or simulators or your own device.
 4. Run `expo start` to run the code.
