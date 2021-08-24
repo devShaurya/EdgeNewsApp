@@ -45,6 +45,8 @@ export function VideoScreen({
 
                 if (aborted == false) {
                     if (response.ok) {
+                        // check if edgeUri is working, if not use partnerUri
+                        // as explained here https://discussions.topcoder.com/discussion/10386/edgenet-video-enablement-api-app-development-quickstart#
                         setUri(edgeUri);
                     } else {
                         setUri(partnerUri);
